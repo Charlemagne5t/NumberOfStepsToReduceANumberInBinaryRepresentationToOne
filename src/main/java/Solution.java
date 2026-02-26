@@ -1,27 +1,19 @@
-public class Solution {
+class Solution {
     public int numSteps(String s) {
-        int count = 0;
-        StringBuilder sb = new StringBuilder(s);
-        while (sb.length() != 1) {
-            if (sb.charAt(sb.length() - 1) == '0') {
-                sb.deleteCharAt(sb.length() - 1);
-            } else {
-                boolean extra = true;
-                for (int i = sb.length() - 1; i >= 0; i--) {
-                    if (sb.charAt(i) == '1') {
-                        sb.setCharAt(i, '0');
-                    } else {
-                        sb.setCharAt(i, '1');
-                        extra = false;
-                        break;
-                    }
-                }
-                if (extra) {
-                    sb.insert(0, '1');
-                }
+        int res = 0;
+        int carry = 0;
+        for(int i = s.length() - 1; i > 0; i--) {
+            int ch = s.charAt(i) - '0';
+            if(ch + carry == 1) {
+                carry = 1;
+                res++;
             }
-            count++;
+            res++;
         }
-        return count;
+        if(carry + s.charAt(0) - '0' ==2) {
+            res++;
+        }
+
+        return res;
     }
 }
